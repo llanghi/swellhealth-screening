@@ -11,8 +11,8 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="index.html" aria-label="Swell Health Screening Tools home">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Swell Health</span>
+        <img class="brand-logo" src="logo.png" alt="Swell Health">
+        <span class="brand-text">Swell Health</span>
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="index.html">Screening home</a>
@@ -134,7 +134,7 @@
           <h2>Your EPDS score</h2>
           <div class="result-score"><span id="score-value">0</span> / 30</div>
           <p id="interpretation-text"></p>
-          <p>This result is a screening score only. It does not provide a diagnosis. Please discuss your result with your GP or health professional.</p>
+          <div class="score-guidance" id="score-guidance"></div>
           <div class="safety-alert" id="safety-alert">
             <strong>Important safety note</strong>
             <span>You selected an answer other than “Never” for the self-harm question. Please discuss this with a GP or health professional as soon as possible. If you feel unsafe or at immediate risk, call emergency services or attend the nearest emergency department.</span>
@@ -164,6 +164,7 @@
     const scoreValue = document.getElementById('score-value');
     const interpretationText = document.getElementById('interpretation-text');
     const safetyAlert = document.getElementById('safety-alert');
+    const scoreGuidance = document.getElementById('score-guidance');
     const resetButton = document.getElementById('reset-button');
     const progressCount = document.getElementById('progress-count');
     const progressBar = document.getElementById('progress-bar');
@@ -183,16 +184,26 @@
     }
 
     function interpretation(score) {
+      const contactLink = '<a href="https://www.swellhealth.com.au/contact">Dr Pozzi Langhi</a>';
       if (score <= 9) {
-        return 'Your score is in the lower range. This does not suggest a high level of postnatal depressive symptoms on this screening tool.';
+        return `Your score is in the lower range. This does not suggest a high level of postnatal depressive symptoms on this screening tool. However, if you feel unwell discuss with ${contactLink} or a health professional.`;
       }
       if (score <= 12) {
-        return 'Your score is in an elevated range. Symptoms may be present and it may be useful to monitor how you are feeling and discuss the result with a GP or health professional.';
+        return `Your score is in an elevated range. Symptoms may be present and it may be useful to monitor how you are feeling and discuss the result with ${contactLink} or a health professional.`;
       }
       if (score <= 14) {
-        return 'Your score is above the commonly used EPDS threshold for further assessment. Please discuss this result with a GP or health professional.';
+        return `Your score is above the commonly used EPDS threshold for further assessment. Please discuss this result with ${contactLink} or a health professional.`;
       }
-      return 'Your score is in a higher range on this screening tool. Please discuss this result with a GP or health professional.';
+      return `Your score is in a higher range on this screening tool. Please discuss this result with ${contactLink} or a health professional.`;
+    }
+
+    function generalGuidance() {
+      const contactLink = '<a href="https://www.swellhealth.com.au/contact">Dr Pozzi Langhi</a>';
+      return `
+        <p>Scores are between 0 and 30, with scores 13 and above indicating depressive illness, or a high risk of developing a depressive disorder.</p>
+        <p>Scores of 13 indicate an 80% chance that the mother has depression. Scores 13 and above represent an increased risk of developing depression of between 5 and 17 times the general population compared to new mothers.</p>
+        <p>The EPDS score should not override clinical judgment. A careful clinical assessment should be carried out to confirm the diagnosis. Please contact ${contactLink} or a health professional to discuss your results.</p>
+      `;
     }
 
     form.addEventListener('change', updateProgress);
@@ -214,7 +225,8 @@
 
       const q10 = Number(form.querySelector('input[name="q10"]:checked').value);
       scoreValue.textContent = total;
-      interpretationText.textContent = interpretation(total);
+      interpretationText.innerHTML = interpretation(total);
+      scoreGuidance.innerHTML = generalGuidance();
       safetyAlert.style.display = q10 > 0 ? 'block' : 'none';
       result.style.display = 'block';
       result.scrollIntoView({ behavior: 'smooth', block: 'start' });

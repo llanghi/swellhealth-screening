@@ -304,3 +304,31 @@ main { padding: 0 24px 64px; }
   .hero { padding-top: 34px; }
   main { padding-left: 16px; padding-right: 16px; }
 }
+
+.brand-logo {
+  width: 148px;
+  height: auto;
+  display: block;
+}
+.brand-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.result a,
+.score-guidance a {
+  color: var(--swell-green);
+  font-weight: 700;
+}
+.score-guidance {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--swell-border);
+  color: var(--swell-charcoal);
+}
