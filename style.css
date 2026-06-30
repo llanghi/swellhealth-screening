@@ -290,8 +290,8 @@ main { padding: 0 24px 64px; }
   max-width: var(--max-width);
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
-  gap: 18px;
+  justify-content: center;
+  gap: 24px;
   flex-wrap: wrap;
 }
 .footer a { color: white; }
@@ -306,20 +306,19 @@ main { padding: 0 24px 64px; }
 }
 
 .brand-logo {
-  width: 148px;
+  width: 92px;
+  max-height: 58px;
   height: auto;
   display: block;
+  object-fit: contain;
 }
 .brand-text {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  font-family: 'Volkhov', Georgia, serif;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 700;
+  line-height: 1;
+  color: white;
   white-space: nowrap;
-  border: 0;
 }
 .result a,
 .score-guidance a {
@@ -331,4 +330,12 @@ main { padding: 0 24px 64px; }
   padding-top: 14px;
   border-top: 1px solid var(--swell-border);
   color: var(--swell-charcoal);
+}
+
+.time-estimate {
+  display: block;
+  margin-top: 14px;
+  color: var(--swell-green);
+  font-style: normal;
+  font-weight: 700;
 }
